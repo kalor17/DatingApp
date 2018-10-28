@@ -11,14 +11,15 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   model: any = {};
 
-  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
+  constructor(public authService: AuthService, private alertify: AlertifyService,
+      private router: Router) { }
 
   ngOnInit() {
   }
 
   login() {
     this.authService.login(this.model).subscribe(next => {
-      this.alertify.success('Logowanie powiodło sie');
+      this.alertify.success('Logged in successfully');
     }, error => {
       this.alertify.error(error);
     }, () => {
@@ -27,7 +28,8 @@ export class NavComponent implements OnInit {
   }
 
   loggedIn() {
-    return this.authService.loggedIn();
+    const token = localStorage.getItem('token');
+    return !!token;
   }
 
   logout() {

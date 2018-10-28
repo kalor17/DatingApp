@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/_modules/user';
-import { UserService } from 'src/app/_services/user.service';
-import { AlertifyService } from 'src/app/_services/alertify.service';
+import { User } from '../../_models/user';
+import { UserService } from '../../_services/user.service';
+import { AlertifyService } from '../../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 
@@ -15,7 +15,8 @@ export class MemberDetailComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private userService: UserService, private alertify: AlertifyService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private alertify: AlertifyService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -32,8 +33,7 @@ export class MemberDetailComponent implements OnInit {
         preview: false
       }
     ];
-
-    this.galleryImages = this.getImages() ;
+    this.galleryImages = this.getImages();
   }
 
   getImages() {
@@ -43,20 +43,10 @@ export class MemberDetailComponent implements OnInit {
         small: this.user.photos[i].url,
         medium: this.user.photos[i].url,
         big: this.user.photos[i].url,
-        description: this.user.photos[i].decription
+        description: this.user.photos[i].description
       });
     }
     return imageUrls;
   }
-
-  // loadUser() {
-  //   this.userService.getUser(+this.route.snapshot.params['id']).subscribe((user: User) => {
-  //     this.user = user;
-  //   }, error => {
-  //     this.alertify.error(error);
-  //   });
-  // }
-
-
 
 }
